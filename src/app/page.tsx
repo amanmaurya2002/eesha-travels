@@ -1,9 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Search, MapPin, Wallet, Headset, LockKeyhole } from 'lucide-react';
+import { MapPin, Wallet, Headset, LockKeyhole } from 'lucide-react';
 import PackageCard from '@/components/package-card';
 
 const featuredPackages = [
@@ -63,13 +62,15 @@ export default function Home() {
           <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto drop-shadow-md">
             Your journey to unforgettable experiences begins here.
           </p>
-          <div className="relative max-w-lg mx-auto">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Where do you want to go?"
-              className="pl-12 pr-4 h-14 text-lg bg-background/80 text-foreground"
-            />
+          <div className="">
+            <Button
+              asChild
+              className="px-10 h-14 text-lg bg-background/80 text-foreground hover:bg-background/90 border border-input"
+            >
+              <Link href="/book">
+                Book Now
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
@@ -78,8 +79,8 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="font-headline text-3xl md:text-4xl font-bold mb-4 text-foreground">Why Choose Us?</h2>
-              <p className="text-muted-foreground mb-8 text-lg">
+              <h2 className="font-headline text-3xl md:text-4xl font-bold mb-4 text-foreground text-center">Why Choose Us?</h2>
+              <p className="text-muted-foreground mb-8 text-lg text-center">
                 We are passionate about creating the most memorable travel experiences. Our expertise and dedication ensure that every trip you take with us is seamless, exciting, and tailored just for you.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
