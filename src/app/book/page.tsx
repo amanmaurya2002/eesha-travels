@@ -1,6 +1,7 @@
 
 'use client';
 
+import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -35,32 +36,36 @@ import React from 'react';
 const bookingFormSchema = z.object({
   fullName: z.string().min(2, { message: 'Full name must be at least 2 characters.' }),
   phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
-  destination: z.string().min(1, { message: 'Please select a destination.' }),
-  travelDate: z.date({ required_error: 'A date of travel is required.' }),
-  travelers: z.coerce.number().min(1, { message: 'There must be at least one traveler.' }),
+  destination: z.string().optional(),
+  travelDate: z.date().optional(),
+  travelers: z.string().optional(),
 });
 
 function BookingForm() {
   const searchParams = useSearchParams();
   const packageId = searchParams.get('package') || '';
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<z.infer<typeof bookingFormSchema>>({
     resolver: zodResolver(bookingFormSchema),
     defaultValues: {
       fullName: '',
       phone: '',
-      destination: packageId,
-      travelers: 1,
+      destination: packageId || undefined,
+      travelers: '',
     },
   });
 
   async function onSubmit(data: z.infer<typeof bookingFormSchema>) {
+    setIsSubmitting(true);
     try {
-      // Convert the date to ISO string for JSON serialization
+      // Convert the date to ISO string for JSON serialization if it exists
+      // Convert travelers string to number if it exists
       const submissionData = {
         ...data,
-        travelDate: data.travelDate.toISOString(),
+        travelDate: data.travelDate ? data.travelDate.toISOString() : undefined,
+        travelers: data.travelers ? parseInt(data.travelers) : undefined,
       };
 
       const response = await fetch('/api/book', {
@@ -87,6 +92,8 @@ function BookingForm() {
         description: "Failed to submit booking request. Please try again or contact us directly.",
         variant: 'destructive',
       });
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -104,91 +111,13 @@ function BookingForm() {
           <CardContent>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                <FormField
-                  control={form.control}
-                  name="destination"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Destination</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                          <SelectTrigger><SelectValue placeholder="Select a package" /></SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value="kashmir-paradise">Kashmir Paradise</SelectItem>
-                          <SelectItem value="goa-beach-bliss">Goa Beach Bliss</SelectItem>
-                          <SelectItem value="rajasthan-royal">Rajasthan Royal Tour</SelectItem>
-                          <SelectItem value="kerala-backwaters">Kerala Backwaters</SelectItem>
-                          <SelectItem value="himachal-adventure">Himachal Adventure</SelectItem>
-                          <SelectItem value="golden-triangle">Golden Triangle Tour</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <FormField
-                    control={form.control}
-                    name="travelDate"
-                    render={({ field }) => (
-                        <FormItem className="flex flex-col">
-                        <FormLabel>Travel Date</FormLabel>
-                        <Popover>
-                            <PopoverTrigger asChild>
-                            <FormControl>
-                                <Button
-                                variant={'outline'}
-                                className={cn(
-                                    'pl-3 text-left font-normal',
-                                    !field.value && 'text-muted-foreground'
-                                )}
-                                >
-                                {field.value ? (
-                                    format(field.value, 'PPP')
-                                ) : (
-                                    <span>Pick a date</span>
-                                )}
-                                <CalendarIconLucide className="ml-auto h-4 w-4 opacity-50" />
-                                </Button>
-                            </FormControl>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0" align="start">
-                            <Calendar
-                                mode="single"
-                                selected={field.value}
-                                onSelect={field.onChange}
-                                disabled={(date) => date < new Date() || date < new Date('1900-01-01')}
-                                initialFocus
-                            />
-                            </PopoverContent>
-                        </Popover>
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                    />
-                    <FormField
-                    control={form.control}
-                    name="travelers"
-                    render={({ field }) => (
-                        <FormItem>
-                        <FormLabel>Number of Travelers</FormLabel>
-                        <FormControl>
-                            <Input type="number" min="1" placeholder="1" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                    />
-                </div>
-
+                {/* Required Fields */}
                 <FormField
                   control={form.control}
                   name="fullName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Full Name</FormLabel>
+                      <FormLabel>Full Name *</FormLabel>
                       <FormControl>
                         <Input placeholder="Komal Maurya" {...field} />
                       </FormControl>
@@ -202,7 +131,7 @@ function BookingForm() {
                   name="phone"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Phone Number</FormLabel>
+                      <FormLabel>Phone Number *</FormLabel>
                       <FormControl>
                         <Input type="tel" placeholder="+91 98765 43210" {...field} />
                       </FormControl>
@@ -211,10 +140,94 @@ function BookingForm() {
                   )}
                 />
 
+                {/* Optional Fields */}
+                <div className="border-t pt-6">
+                  <p className="text-sm text-muted-foreground mb-4">Optional details (help us customize your experience)</p>
+
+                  <FormField
+                    control={form.control}
+                    name="destination"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Destination</FormLabel>
+                        <Select onValueChange={(value) => field.onChange(value || undefined)} value={field.value || undefined}>
+                          <FormControl>
+                            <SelectTrigger><SelectValue placeholder="Select a package" /></SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="kashmir-paradise">Kashmir Paradise</SelectItem>
+                            <SelectItem value="goa-beach-bliss">Goa Beach Bliss</SelectItem>
+                            <SelectItem value="rajasthan-royal">Rajasthan Royal Tour</SelectItem>
+                            <SelectItem value="kerala-backwaters">Kerala Backwaters</SelectItem>
+                            <SelectItem value="himachal-adventure">Himachal Adventure</SelectItem>
+                            <SelectItem value="golden-triangle">Golden Triangle Tour</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
+                      <FormField
+                      control={form.control}
+                      name="travelDate"
+                      render={({ field }) => (
+                          <FormItem className="flex flex-col">
+                          <FormLabel>Travel Date</FormLabel>
+                          <Popover>
+                              <PopoverTrigger asChild>
+                              <FormControl>
+                                  <Button
+                                  variant={'outline'}
+                                  className={cn(
+                                      'pl-3 text-left font-normal',
+                                      !field.value && 'text-muted-foreground'
+                                  )}
+                                  >
+                                  {field.value ? (
+                                      format(field.value, 'PPP')
+                                  ) : (
+                                      <span>Pick a date</span>
+                                  )}
+                                  <CalendarIconLucide className="ml-auto h-4 w-4 opacity-50" />
+                                  </Button>
+                              </FormControl>
+                              </PopoverTrigger>
+                              <PopoverContent className="w-auto p-0" align="start">
+                              <Calendar
+                                  mode="single"
+                                  selected={field.value}
+                                  onSelect={field.onChange}
+                                  disabled={(date) => date < new Date() || date < new Date('1900-01-01')}
+                                  initialFocus
+                              />
+                              </PopoverContent>
+                          </Popover>
+                          <FormMessage />
+                          </FormItem>
+                      )}
+                      />
+                      <FormField
+                      control={form.control}
+                      name="travelers"
+                      render={({ field }) => (
+                          <FormItem>
+                          <FormLabel>Number of Travelers</FormLabel>
+                          <FormControl>
+                              <Input type="number" min="1" placeholder="1" {...field} value={field.value || ''} />
+                          </FormControl>
+                          <FormMessage />
+                          </FormItem>
+                      )}
+                      />
+                  </div>
+                </div>
 
 
-                <Button type="submit" className="w-full" size="lg" style={{backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))'}}>
-                    Submit Booking Request
+
+                <Button type="submit" className="w-full" size="lg" disabled={isSubmitting} style={{backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))'}}>
+                    {isSubmitting ? 'Submitting...' : 'Submit Booking Request'}
                 </Button>
               </form>
             </Form>

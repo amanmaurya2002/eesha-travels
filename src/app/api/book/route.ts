@@ -8,22 +8,32 @@ export async function POST(request: NextRequest) {
   try {
     const { fullName, phone, destination, travelDate, travelers } = await request.json();
 
-    // Validate the data
-    if (!fullName || !phone || !destination || !travelDate || !travelers) {
+    // Validate required fields only
+    if (!fullName || !phone) {
       return NextResponse.json(
-        { error: 'Missing required fields' },
+        { error: 'Full name and phone number are required' },
         { status: 400 }
       );
     }
 
-    // Format the travel date
-    const formattedDate = format(new Date(travelDate), 'EEEE, MMMM do, yyyy');
+    // Format optional fields with fallbacks
+    let formattedDate = 'Date not specified';
+    if (travelDate) {
+      try {
+        formattedDate = format(new Date(travelDate), 'EEEE, MMMM do, yyyy');
+      } catch (error) {
+        console.warn('Invalid travel date format:', travelDate);
+        formattedDate = 'Invalid date format';
+      }
+    }
+    const destinationText = destination || 'Destination not specified';
+    const travelersText = travelers ? `${travelers} Traveler${parseInt(travelers) > 1 ? 's' : ''}` : 'Travelers not specified';
 
     // Send email using Resend's shared domain
     const { data: emailData, error } = await resend.emails.send({
       from: 'Eesha Travels <onboarding@resend.dev>', // Resend's shared domain
       to: process.env.EMAIL_TO!,
-      subject: `🚀 New Booking Request: ${destination} - ${fullName}`,
+      subject: `🚀 New Booking Request: ${destinationText} - ${fullName}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 650px; margin: 0 auto;">
           <div style="background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%); padding: 25px; border-radius: 12px 12px 0 0;">
@@ -37,11 +47,11 @@ export async function POST(request: NextRequest) {
               <h2 style="margin: 0 0 15px 0; font-size: 24px;">✈️ Trip Details</h2>
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
                 <div>
-                  <p style="margin: 0; font-size: 18px; font-weight: bold;">📍 ${destination}</p>
+                  <p style="margin: 0; font-size: 18px; font-weight: bold;">📍 ${destinationText}</p>
                   <p style="margin: 5px 0 0 0; opacity: 0.9;">${formattedDate}</p>
                 </div>
                 <div style="text-align: right;">
-                  <p style="margin: 0; font-size: 18px; font-weight: bold;">👥 ${travelers} Traveler${travelers > 1 ? 's' : ''}</p>
+                  <p style="margin: 0; font-size: 18px; font-weight: bold;">👥 ${travelersText}</p>
                   <p style="margin: 5px 0 0 0; opacity: 0.9;">Adventure awaits!</p>
                 </div>
               </div>
@@ -54,7 +64,6 @@ export async function POST(request: NextRequest) {
                 <div>
                   <p style="margin: 0;"><strong>Full Name:</strong> ${fullName}</p>
                   <p style="margin: 8px 0 0 0;"><strong>Phone:</strong> ${phone}</p>
-                  <p style="margin: 8px 0 0 0;"><strong>Preferred Contact:</strong> Phone</p>
                 </div>
               </div>
             </div>
