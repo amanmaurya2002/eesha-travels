@@ -8,9 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 const navLinks = [
-  { href: "/", label: "Home" },
   { href: "/packages", label: "Packages" },
-  { href: "/recommendations", label: "AI Recommendations" },
   { href: "/blogs", label: "Blog" },
   { href: "/about", label: "About Us" },
   { href: "/contact", label: "Contact" },
@@ -55,19 +53,7 @@ export default function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] flex flex-col">
-              <SheetHeader>
-                <SheetTitle>
-                  <Link href="/" className="flex items-center" onClick={() => setIsOpen(false)}>
-                    <Image
-                      src="/logo.png"
-                      alt="Eesha Travels Logo"
-                      width={240}
-                      height={240}
-                      className="h-8 w-auto"
-                    />
-                  </Link>
-                </SheetTitle>
-              </SheetHeader>
+
               <nav className="flex-grow flex flex-col items-start gap-4 pt-8">
                 {navLinks.map((link) => (
                   <Link
