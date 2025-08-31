@@ -24,7 +24,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { CalendarIcon, PlaneTakeoff, User, Calendar as CalendarIconLucide, Mail, Phone } from 'lucide-react';
+import { CalendarIcon, PlaneTakeoff, User, Calendar as CalendarIconLucide, Phone } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
@@ -35,7 +35,6 @@ import React from 'react';
 const bookingFormSchema = z.object({
   fullName: z.string().min(2, { message: 'Full name must be at least 2 characters.' }),
   phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
-  email: z.string().email({ message: 'Please enter a valid email address.' }).optional(),
   destination: z.string().min(1, { message: 'Please select a destination.' }),
   travelDate: z.date({ required_error: 'A date of travel is required.' }),
   travelers: z.coerce.number().min(1, { message: 'There must be at least one traveler.' }),
@@ -50,20 +49,45 @@ function BookingForm() {
     resolver: zodResolver(bookingFormSchema),
     defaultValues: {
       fullName: '',
-      email: '',
       phone: '',
       destination: packageId,
       travelers: 1,
     },
   });
 
-  function onSubmit(data: z.infer<typeof bookingFormSchema>) {
-    console.log(data);
-    toast({
-      title: 'Booking Request Submitted!',
-      description: "We've received your request and will be in touch shortly to confirm the details.",
-    });
-    form.reset();
+  async function onSubmit(data: z.infer<typeof bookingFormSchema>) {
+    try {
+      // Convert the date to ISO string for JSON serialization
+      const submissionData = {
+        ...data,
+        travelDate: data.travelDate.toISOString(),
+      };
+
+      const response = await fetch('/api/book', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(submissionData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit booking request');
+      }
+
+      toast({
+        title: 'Booking Request Submitted!',
+        description: "We've received your request and will be in touch shortly to confirm the details.",
+      });
+      form.reset();
+    } catch (error) {
+      console.error('Error submitting booking:', error);
+      toast({
+        title: 'Error',
+        description: "Failed to submit booking request. Please try again or contact us directly.",
+        variant: 'destructive',
+      });
+    }
   }
 
   return (
@@ -187,19 +211,7 @@ function BookingForm() {
                   )}
                 />
 
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email Address (Optional)</FormLabel>
-                      <FormControl>
-                        <Input type="email" placeholder="komal@example.com" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+
 
                 <Button type="submit" className="w-full" size="lg" style={{backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))'}}>
                     Submit Booking Request

@@ -16,11 +16,11 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Mail } from 'lucide-react';
+import { Phone } from 'lucide-react';
 
 const contactFormSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),
-  email: z.string().email('Please enter a valid email.'),
+  phone: z.string().min(10, 'Please enter a valid phone number.'),
   message: z.string().min(10, 'Message must be at least 10 characters.'),
 });
 
@@ -31,18 +31,38 @@ export default function ContactPage() {
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
       name: '',
-      email: '',
+      phone: '',
       message: '',
     },
   });
 
-  function onSubmit(data: z.infer<typeof contactFormSchema>) {
-    console.log('Contact form submitted:', data);
-    toast({
-      title: 'Message Sent!',
-      description: "Thanks for reaching out. We'll get back to you soon.",
-    });
-    form.reset();
+  async function onSubmit(data: z.infer<typeof contactFormSchema>) {
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
+
+      toast({
+        title: 'Message Sent! 🎉',
+        description: "Thanks for reaching out. We'll get back to you soon.",
+      });
+      form.reset();
+    } catch (error) {
+      console.error('Error sending message:', error);
+      toast({
+        title: 'Error',
+        description: "Failed to send message. Please try again or contact us directly.",
+        variant: 'destructive',
+      });
+    }
   }
 
   return (
@@ -51,7 +71,7 @@ export default function ContactPage() {
         <Card>
           <CardHeader className="text-center">
             <div className="inline-block p-4 bg-primary/10 rounded-full mb-4 mx-auto w-fit">
-              <Mail className="h-10 w-10 text-primary" />
+              <Phone className="h-10 w-10 text-primary" />
             </div>
             <CardTitle className="font-headline text-4xl">Get In Touch</CardTitle>
             <CardDescription>Have questions or need support? Send us a message!</CardDescription>
@@ -74,12 +94,12 @@ export default function ContactPage() {
                 />
                 <FormField
                   control={form.control}
-                  name="email"
+                  name="phone"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Your Email</FormLabel>
+                      <FormLabel>Your Phone Number</FormLabel>
                       <FormControl>
-                        <Input type="email" placeholder="Enter your email" {...field} />
+                        <Input type="tel" placeholder="+91 98765 43210" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

@@ -5,15 +5,16 @@ import { Heart, Globe, Users } from 'lucide-react';
 export default function AboutPage() {
   return (
     <div className="bg-background">
-      <section className="relative h-[40vh] w-full flex items-center justify-center text-center text-white">
-        <Image
-          src="https://picsum.photos/1200/400"
-          alt="World map"
-          fill
-          className="object-cover -z-10 brightness-50"
-          data-ai-hint="world map"
-        />
-        <div className="container mx-auto px-4">
+      <section className="relative h-[40vh] w-full flex items-center justify-center text-center text-white"
+               style={{
+                 backgroundImage: 'url(/images/about.jpg)',
+                 backgroundSize: 'cover',
+                 backgroundPosition: 'center',
+                 backgroundRepeat: 'no-repeat'
+               }}>
+        {/* Dark overlay for better text contrast */}
+        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="container mx-auto px-4 relative z-10">
           <h1 className="font-headline text-4xl md:text-6xl font-bold drop-shadow-lg">About Eesha Travels</h1>
           <p className="text-lg md:text-xl mt-2 drop-shadow-md">Crafting unforgettable journeys, one adventure at a time.</p>
         </div>
@@ -51,8 +52,8 @@ export default function AboutPage() {
         <div className="container mx-auto max-w-5xl px-4">
            <div className="grid md:grid-cols-2 gap-12 items-center">
              <div className="order-2 md:order-1">
-                <h2 className="font-headline text-3xl md:text-4xl font-bold mb-4">Meet the Founder</h2>
-                <p className="text-muted-foreground mb-4 text-lg">Eesha, a globetrotter with a passion for discovering hidden gems, founded Eesha Travels to share her love for exploration. With over a decade of experience in the travel industry, she ensures every itinerary is filled with authentic and enriching experiences.</p>
+                <h2 className="font-headline text-3xl md:text-4xl font-bold mb-4 text-center">Meet the Founder</h2>
+                <p className="text-muted-foreground mb-4 text-lg text-center">Eesha, a globetrotter with a passion for discovering hidden gems, founded Eesha Travels to share her love for exploration. With over a decade of experience in the travel industry, she ensures every itinerary is filled with authentic and enriching experiences.</p>
                 <p className="text-muted-foreground">"Travel is more than just seeing new places," says Eesha. "It's about connecting with the world, creating lasting memories, and returning home with a new perspective. That's the magic I want to share with every one of our clients."</p>
              </div>
              <div className="relative h-96 rounded-lg overflow-hidden order-1 md:order-2">
