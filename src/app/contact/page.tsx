@@ -66,7 +66,7 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="bg-background py-16 md:py-24">
+    <div className="bg-background py-8 md:py-24">
       <div className="container mx-auto max-w-2xl px-4">
         <Card>
           <CardHeader className="text-center">
