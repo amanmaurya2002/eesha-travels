@@ -82,3 +82,34 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  /* Touch-friendly interactions */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Mobile menu slide animation */
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* Ensure mobile menu is fully visible */
+  .mobile-menu-panel {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    opacity: 1 !important;
+  }
+
+  .mobile-menu-panel * {
+    color: inherit !important;
+  }
+}
