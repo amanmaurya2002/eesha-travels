@@ -37,7 +37,7 @@ export default function PackageCard({ id, imageUrl, imageHint, destination, desc
         <p className="text-foreground/80 font-body text-base">{description}</p>
       </CardContent>
       <CardFooter className="p-6 flex justify-between items-center bg-secondary/30">
-        <p className="text-2xl font-bold text-primary">${price.toLocaleString()}</p>
+        <p className="text-2xl font-bold text-primary">₹{price.toLocaleString()}</p>
         <Button asChild style={{backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))'}}>
           <Link href={`/book?package=${id}`}>Book Now</Link>
         </Button>

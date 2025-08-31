@@ -1,14 +1,22 @@
 import Link from 'next/link';
-import { Mountain, Instagram } from 'lucide-react';
+import Image from 'next/image';
+import { Instagram } from 'lucide-react';
 
 export default function Footer() {
   return (
     <footer className="bg-secondary/40">
       <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center text-center md:text-left">
-          <div className="flex items-center justify-center md:justify-start space-x-2">
-            <Mountain className="h-8 w-8 text-primary" />
-            <span className="font-headline text-2xl font-bold text-foreground">Eesha Travels</span>
+          <div className="flex items-center justify-center md:justify-start">
+            <Link href="/">
+              <Image
+                src="/logo.png"
+                alt="Eesha Travels Logo"
+                width={120}
+                height={32}
+                className="h-8 w-auto"
+              />
+            </Link>
           </div>
           <div className="flex justify-center space-x-6 text-muted-foreground">
             <Link href="/about" className="hover:text-primary">About</Link>

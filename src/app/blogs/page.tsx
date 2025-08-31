@@ -2,58 +2,58 @@ import BlogCard from "@/components/blog-card";
 
 const blogPosts = [
   {
-    id: '10-hidden-gems-in-italy',
-    title: '10 Hidden Gems to Discover in Italy',
-    excerpt: 'Move beyond the Colosseum and canals. We\'re uncovering the lesser-known towns and stunning landscapes that make Italy truly magical.',
-    author: 'Alex Johnson',
-    date: 'October 26, 2023',
+    id: 'discovering-the-backwaters-of-kerala',
+    title: 'Discovering the Serene Backwaters of Kerala',
+    excerpt: 'Glide through emerald waters on traditional houseboats, explore spice plantations, and experience the tranquil beauty that makes Kerala a paradise on earth.',
+    author: 'Eesha',
+    date: 'August 15, 2025',
     imageUrl: 'https://picsum.photos/400/250?random=21',
-    imageHint: 'Italian village',
+    imageHint: 'Kerala backwaters',
   },
   {
-    id: 'a-food-lovers-guide-to-vietnam',
-    title: 'A Food Lover\'s Guide to Vietnam',
-    excerpt: 'From steaming bowls of pho to crispy banh mi, join us on a culinary journey through the vibrant street food scene of Vietnam.',
-    author: 'Samantha Bee',
-    date: 'October 15, 2023',
+    id: 'royal-palaces-of-rajasthan',
+    title: 'The Majestic Palaces of Rajasthan: A Royal Journey',
+    excerpt: 'Step into a fairy tale as you explore the opulent palaces, magnificent forts, and vibrant culture that define the royal heritage of Rajasthan.',
+    author: 'Aman Maurya',
+    date: 'September 2, 2025',
     imageUrl: 'https://picsum.photos/400/250?random=22',
-    imageHint: 'Vietnamese food',
+    imageHint: 'Rajasthan palace',
   },
   {
-    id: 'solo-travel-in-scandinavia',
-    title: 'Finding Yourself: A Guide to Solo Travel in Scandinavia',
-    excerpt: 'Embrace the solitude and stunning natural beauty of Scandinavia. Here are our top tips for a safe and unforgettable solo adventure.',
-    author: 'Ben Carter',
-    date: 'September 28, 2023',
+    id: 'spiritual-journey-in-varanasi',
+    title: 'A Spiritual Journey Along the Ganges in Varanasi',
+    excerpt: 'Experience the soul-stirring spirituality of India\'s oldest living city, where ancient rituals meet the sacred waters of the holy Ganges river.',
+    author: 'Komal Maurya',
+    date: 'September 18, 2025',
     imageUrl: 'https://picsum.photos/400/250?random=23',
-    imageHint: 'Norway fjord',
+    imageHint: 'Varanasi ghats',
   },
   {
-    id: 'packing-light-for-a-big-trip',
-    title: 'The Art of Packing Light for a Big Trip',
-    excerpt: 'Say goodbye to oversized luggage! Learn how to pack everything you need for a multi-week trip into a single carry-on.',
-    author: 'Eesha Travels Staff',
-    date: 'September 5, 2023',
+    id: 'monsoon-magic-in-maharashtra',
+    title: 'Monsoon Magic: Exploring Maharashtra\'s Waterfalls',
+    excerpt: 'Chase the rains through Maharashtra\'s spectacular waterfalls, lush green landscapes, and rejuvenating hill stations during the magical monsoon season.',
+    author: 'Eesha',
+    date: 'October 8, 2025',
     imageUrl: 'https://picsum.photos/400/250?random=24',
-    imageHint: 'packing suitcase',
+    imageHint: 'Maharashtra waterfall',
   },
   {
-    id: 'navigating-the-grand-bazaar-in-istanbul',
-    title: 'Navigating the Grand Bazaar in Istanbul',
-    excerpt: 'A sensory overload in the best way possible. Here\'s how to haggle, what to buy, and how to not get lost in one of the world\'s oldest markets.',
-    author: 'Fatima Ahmed',
-    date: 'August 21, 2023',
+    id: 'culinary-delights-of-punjab',
+    title: 'Culinary Delights: A Food Lover\'s Guide to Punjab',
+    excerpt: 'Dive into the rich flavors of Punjabi cuisine - from butter chicken to makhan, explore the heartwarming dishes that define India\'s food culture.',
+    author: 'Aman Maurya',
+    date: 'October 22, 2025',
     imageUrl: 'https://picsum.photos/400/250?random=25',
-    imageHint: 'Turkish market',
+    imageHint: 'Punjabi food',
   },
   {
-    id: 'the-ultimate-costa-rica-ecotourism-itinerary',
-    title: 'The Ultimate Costa Rica Ecotourism Itinerary',
-    excerpt: 'Zip-lining through cloud forests, spotting exotic wildlife, and relaxing on pristine beaches. Explore the Pura Vida lifestyle with our eco-friendly guide.',
-    author: 'Maria Rodriguez',
-    date: 'August 10, 2023',
+    id: 'wildlife-safari-in-ranthambore',
+    title: 'Wildlife Safari in Ranthambore: A Tiger\'s Tale',
+    excerpt: 'Embark on an unforgettable journey to spot majestic tigers, explore ancient ruins, and witness the raw beauty of India\'s wildlife sanctuaries.',
+    author: 'Komal Maurya',
+    date: 'November 5, 2025',
     imageUrl: 'https://picsum.photos/400/250?random=26',
-    imageHint: 'Costa Rica jungle',
+    imageHint: 'Ranthambore tiger',
   }
 ];
 
@@ -64,7 +64,7 @@ export default function BlogsPage() {
                 <div className="text-center mb-12">
                     <h1 className="font-headline text-4xl md:text-5xl font-bold mb-4">From Our Travel Journal</h1>
                     <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
-                        Stories, tips, and inspiration from our travels around the globe.
+                        Authentic stories, cultural insights, and travel inspiration from the diverse landscapes of Incredible India.
                     </p>
                 </div>
 

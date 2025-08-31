@@ -8,31 +8,31 @@ import PackageCard from '@/components/package-card';
 
 const featuredPackages = [
   {
-    id: 'paris-dream',
-    destination: 'Parisian Dream',
-    description: 'Experience the romance of Paris with a week-long getaway.',
-    price: 1800,
-    duration: '7 Days',
+    id: 'jibhi',
+    destination: 'Jibhi',
+    description: 'Experience the romance of Jibhi with a 3 days getaway.',
+    price: 4999,
+    duration: '3 Days 2 Nights',
     imageUrl: 'https://picsum.photos/400/300?random=1',
-    imageHint: 'Paris Eiffel Tower',
+    imageHint: 'Jibhi',
   },
   {
-    id: 'tokyo-adventure',
-    destination: 'Tokyo Adventure',
-    description: 'Explore the vibrant culture and futuristic cityscapes of Tokyo.',
-    price: 2200,
-    duration: '8 Days',
+    id: 'chandigarh',
+    destination: 'Chandigarh',
+    description: 'Explore the vibrant culture and futuristic cityscapes of Chandigarh with a 10 days getaway.',
+    price: 5999,
+    duration: '10 Days 9 Nights',
     imageUrl: 'https://picsum.photos/400/300?random=2',
-    imageHint: 'Tokyo street',
+    imageHint: 'Chandigarh',
   },
   {
-    id: 'bali-escape',
-    destination: 'Bali Escape',
-    description: 'Relax and unwind on the beautiful beaches of Bali.',
-    price: 1500,
-    duration: '10 Days',
+    id: 'goa',
+    destination: 'Goa',
+    description: 'Relax and unwind on the beautiful beaches of Goa with a 10 days getaway.',
+    price: 13999,
+    duration: '10 Days 9 Nights',
     imageUrl: 'https://picsum.photos/400/300?random=3',
-    imageHint: 'Bali beach',
+    imageHint: 'Goa',
   },
 ];
 
@@ -68,11 +68,8 @@ export default function Home() {
             <Input
               type="search"
               placeholder="Where do you want to go?"
-              className="pl-12 h-14 text-lg bg-background/80 text-foreground"
+              className="pl-12 pr-4 h-14 text-lg bg-background/80 text-foreground"
             />
-            <Button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2" style={{backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))'}}>
-              Search
-            </Button>
           </div>
         </div>
       </section>

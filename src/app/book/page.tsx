@@ -91,12 +91,12 @@ function BookingForm() {
                           <SelectTrigger><SelectValue placeholder="Select a package" /></SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="paris-dream">Parisian Dream</SelectItem>
-                          <SelectItem value="tokyo-adventure">Tokyo Adventure</SelectItem>
-                          <SelectItem value="bali-escape">Bali Escape</SelectItem>
-                          <SelectItem value="roman-holiday">Roman Holiday</SelectItem>
-                          <SelectItem value="inca-trail">The Inca Trail</SelectItem>
-                          <SelectItem value="safari-spectacular">Safari Spectacular</SelectItem>
+                          <SelectItem value="kashmir-paradise">Kashmir Paradise</SelectItem>
+                          <SelectItem value="goa-beach-bliss">Goa Beach Bliss</SelectItem>
+                          <SelectItem value="rajasthan-royal">Rajasthan Royal Tour</SelectItem>
+                          <SelectItem value="kerala-backwaters">Kerala Backwaters</SelectItem>
+                          <SelectItem value="himachal-adventure">Himachal Adventure</SelectItem>
+                          <SelectItem value="golden-triangle">Golden Triangle Tour</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
