@@ -21,14 +21,13 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-transparent backdrop-blur supports-[backdrop-filter]:bg-background/10">
-      <div className="container flex h-16 max-w-7xl items-center justify-between">
+      <div className="p-1 container flex h-16 max-w-7xl items-center justify-between">
         <Link href="/" className="flex items-center">
           <Image
             src="/logo.png"
             alt="Eesha Travels Logo"
-            width={150}
-            height={40}
-            className="h-10 w-auto"
+            width={64}
+            height={64}
           />
         </Link>
         <div className="hidden md:flex items-center gap-6">

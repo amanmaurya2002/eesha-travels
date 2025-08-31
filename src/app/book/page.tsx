@@ -34,8 +34,8 @@ import React from 'react';
 
 const bookingFormSchema = z.object({
   fullName: z.string().min(2, { message: 'Full name must be at least 2 characters.' }),
-  email: z.string().email({ message: 'Please enter a valid email address.' }),
-  phone: z.string().optional(),
+  phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
+  email: z.string().email({ message: 'Please enter a valid email address.' }).optional(),
   destination: z.string().min(1, { message: 'Please select a destination.' }),
   travelDate: z.date({ required_error: 'A date of travel is required.' }),
   travelers: z.coerce.number().min(1, { message: 'There must be at least one traveler.' }),
@@ -166,21 +166,7 @@ function BookingForm() {
                     <FormItem>
                       <FormLabel>Full Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="John Doe" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email Address</FormLabel>
-                      <FormControl>
-                        <Input type="email" placeholder="you@example.com" {...field} />
+                        <Input placeholder="Komal Maurya" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -192,9 +178,23 @@ function BookingForm() {
                   name="phone"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Phone Number (Optional)</FormLabel>
+                      <FormLabel>Phone Number</FormLabel>
                       <FormControl>
-                        <Input type="tel" placeholder="(123) 456-7890" {...field} />
+                        <Input type="tel" placeholder="+91 98765 43210" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email Address (Optional)</FormLabel>
+                      <FormControl>
+                        <Input type="email" placeholder="rahul@example.com" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
