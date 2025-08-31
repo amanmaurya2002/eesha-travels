@@ -65,7 +65,7 @@ export default function Home() {
           <div className="">
             <Button
               asChild
-              className="px-10 h-14 text-lg bg-background/80 text-foreground hover:bg-background/90 border border-input"
+              className="px-10 h-14 text-lg bg-background/80 text-foreground hover:bg-background/90 border border-input active:scale-95 transition-all duration-150 ease-out touch-manipulation"
             >
               <Link href="/book">
                 Book Now
@@ -168,7 +168,7 @@ export default function Home() {
                   alt={`Travel moment ${index + 1}`}
                   width={400}
                   height={600}
-                  className="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-300"
+                  className="w-full h-auto object-cover transform hover:scale-105 active:scale-[1.02] transition-transform duration-300 ease-out touch-manipulation"
                   data-ai-hint={moment.hint}
                 />
               </div>

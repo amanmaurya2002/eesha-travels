@@ -16,7 +16,7 @@ type PackageCardProps = {
 
 export default function PackageCard({ id, imageUrl, imageHint, destination, description, price, duration }: PackageCardProps) {
   return (
-    <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col bg-card">
+    <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col bg-card active:scale-[0.98] touch-manipulation">
       <CardHeader className="p-0">
         <div className="relative aspect-[4/3]">
           <Image
@@ -38,7 +38,7 @@ export default function PackageCard({ id, imageUrl, imageHint, destination, desc
       </CardContent>
       <CardFooter className="p-6 flex justify-between items-center bg-secondary/30">
         <p className="text-2xl font-bold text-primary">₹{price.toLocaleString()}</p>
-        <Button asChild style={{backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))'}}>
+        <Button asChild className="active:scale-95 transition-transform duration-150 ease-out touch-manipulation" style={{backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))'}}>
           <Link href={`/book?package=${id}`}>Book Now</Link>
         </Button>
       </CardFooter>
