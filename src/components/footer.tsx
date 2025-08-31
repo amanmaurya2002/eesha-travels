@@ -7,17 +7,6 @@ export default function Footer() {
     <footer className="bg-secondary/40">
       <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center text-center md:text-left">
-          <div className="flex items-center justify-center md:justify-start">
-            <Link href="/">
-              <Image
-                src="/logo.png"
-                alt="Eesha Travels Logo"
-                width={120}
-                height={32}
-                className="h-8 w-auto"
-              />
-            </Link>
-          </div>
           <div className="flex justify-center space-x-6 text-muted-foreground">
             <Link href="/about" className="hover:text-primary">About</Link>
             <Link href="/packages" className="hover:text-primary">Packages</Link>

@@ -194,7 +194,7 @@ function BookingForm() {
                     <FormItem>
                       <FormLabel>Email Address (Optional)</FormLabel>
                       <FormControl>
-                        <Input type="email" placeholder="rahul@example.com" {...field} />
+                        <Input type="email" placeholder="komal@example.com" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
