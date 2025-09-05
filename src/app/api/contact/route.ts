@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
 
     // Send email using custom domain
     const { data: emailData, error } = await resend.emails.send({
-      from: 'Eesha Travels <booking@masot.online>', // Custom domain
+      from: 'Eesha Travels <booking@bookings.masot.online>', // Custom domain
       to: process.env.EMAIL_TO!,
       subject: `New Contact Inquiry from ${name} - ${phone}`,
       html: `
@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
 
           <div style="text-align: center; padding: 20px; color: #666; font-size: 12px;">
             <p>This message was sent from your Eesha Travels website contact form.</p>
-            <p>Reply to: <a href="mailto:booking@masot.online" style="color: #007bff;">booking@masot.online</a></p>
+            <p>Reply to: <a href="mailto:booking@bookings.masot.online" style="color: #007bff;">booking@bookings.masot.online</a></p>
             <p>Call directly: <a href="tel:${phone}" style="color: #007bff;">${phone}</a></p>
           </div>
         </div>
